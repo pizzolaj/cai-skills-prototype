@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>CAI Skills Maze Setup</title>
+<style>
+:root{--red:#C41F3E;--ink:#383B3E;--ink2:#606366;--line:#D9D9D6;--bg:#F2F3F2}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Helvetica Neue",Arial,sans-serif;padding:32px 16px}
+main{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-size:26px;margin:0}
+h2{font-size:17px;margin:0 0 4px}
+p{margin:0}
+.lead{color:var(--ink2)}
+.card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+code,.url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
+.url{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px 10px;flex:1;min-width:0;overflow-x:auto;white-space:nowrap}
+button{font:inherit;font-size:13px;border:1px solid var(--line);background:#fff;border-radius:8px;padding:6px 12px;cursor:pointer}
+button:hover{background:var(--bg)}
+a{color:var(--red)}
+.lbl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.path span{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:#FAF1F3;color:var(--red);border-radius:999px;padding:2px 9px}
+.path i{font-style:normal;color:var(--ink2)}
+.alt{font-size:13px;color:var(--ink2)}
+ol{margin:0;padding-left:20px}
+</style>
+</head>
+<body>
+<main>
+  <h1>CAI Skills: Maze test setup</h1>
+  <p class="lead">For the researcher only. Participants get the start URLs below, never this page. Each start URL opens a clean prototype with no flow bar or tips. Every screen change adds <code>&amp;screen=…</code> to the URL, which is what Maze records as a step.</p>
+
+  <section class="card">
+    <h2>Set up in Maze</h2>
+    <ol>
+      <li>Team settings → Connected websites: add <code>https://pizzolaj.github.io</code> and verify it by opening any start URL below.</li>
+      <li>Add a <b>Website test</b> block for each task. Paste the task's start URL as the starting page.</li>
+      <li>Record the expected path by clicking through it once. Add the alternates as extra success paths.</li>
+      <li>Tell participants to select <b>End task</b> when done. Maze doesn't end website tasks on its own.</li>
+    </ol>
+  </section>
+
+  <div id="tasks"></div>
+
+  <section class="card">
+    <h2>Notes</h2>
+    <p class="alt">Open <a href="./">the prototype without a task</a> to get the demo version with the flow bar. Chat responses are scripted, so write task prompts that steer participants to the scenario (for example, name New Brunswick and a $100 oil price). Typing unrelated requests returns a neutral “try again” message.</p>
+  </section>
+</main>
+<script>
+const BASE = new URL("./", location.href).href;
+const T = [
+  { id: "library", name: "Turn a skill off",
+    prompt: "CAI keeps using the draft-content skill in your chats. Stop CAI from using it.",
+    path: ["skill-cibc-strategy-report", "skill-draft-content", "skill-draft-content-off"] },
+  { id: "browse", name: "Find and install a skill",
+    prompt: "You need a skill that lists the key risks and mitigants for a borrower. Find one your organization provides and add it to your skills.",
+    path: ["skill-cibc-strategy-report", "add-menu", "directory", "directory-risks-mitigants", "directory-risks-mitigants-installed"],
+    alt: "Installing from the card grid ends at directory-risks-mitigants-installed without opening the detail." },
+  { id: "create", name: "Create a skill",
+    prompt: "Create a skill that writes your weekly status report in three sections: highs, lows, and next steps.",
+    path: ["skill-cibc-strategy-report", "add-menu", "create-menu", "write-instructions", "skill-weekly-status-report"],
+    alt: "Create with AI: add-menu → create-menu → create-ai → create-ai-chat → create-ai-q1 … q6 → create-ai-draft → skill-…. Upload: … → upload → upload-success. The final skill name depends on what participants type." },
+  { id: "invoke", name: "Run a skill in chat",
+    prompt: "Use your compare-to-plan skill to compare June results with plan.",
+    path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-running-compare-to-plan", "chat-done-compare-to-plan"],
+    alt: "Via the + menu: chat-new → chat-add-menu → chat-add-skills → chat-add-skills-personal → chat-skill-selected → …" },
+  { id: "chatcreate", name: "Create a skill in chat",
+    prompt: "In this chat, create a skill called Credit Risk Deep-Dive that analyzes a province's key sectors under an economic scenario and flags High risk items first. Attach reference files.",
+    path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-add-menu", "chat-skill-selected", "chat-sent", "chat-create-q1", "chat-create-q2", "chat-create-q3", "chat-create-q4", "chat-create-writing", "chat-skill-created"],
+    alt: "Sending /create-skill with no prompt adds chat-create-brief before the questions. Attaching files is optional." },
+  { id: "recommend", name: "Choose a suggested skill",
+    prompt: "Ask CAI for New Brunswick's credit exposure under a $100 oil price scenario, with a full written analysis. Run it.",
+    path: ["chat-new", "chat-sent", "chat-recommend", "chat-recommend-picked", "chat-plan-pending", "chat-running-credit-risk-deep-dive", "chat-done-credit-risk-deep-dive"],
+    alt: "Picking scenario-scorecard ends at chat-done-scenario-scorecard. Continue without skill ends at chat-done-none." }
+];
+document.getElementById("tasks").innerHTML = T.map((t, i) => {
+  const url = BASE + "?task=" + t.id;
+  return `<section class="card">
+    <div class="lbl">Task ${i + 1}</div><h2>${t.name}</h2>
+    <p><b>Suggested prompt:</b> ${t.prompt}</p>
+    <div class="row"><div class="url" id="u${i}">${url}</div><button data-u="${url}">Copy</button><a href="${url}" target="_blank" rel="noopener">Open</a></div>
+    <div class="lbl">Expected path (screen=)</div>
+    <div class="path">${t.path.map(p => `<span>${p}</span>`).join("<i>→</i>")}</div>
+    ${t.alt ? `<p class="alt">${t.alt}</p>` : ""}
+  </section>`;
+}).join("");
+document.addEventListener("click", e => {
+  const b = e.target.closest("button[data-u]"); if (!b) return;
+  navigator.clipboard.writeText(b.dataset.u).then(() => { b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy", 1500); }).catch(() => {});
+});
+</script>
+</body>
+</html>
