@@ -4,16 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>CAI Skills Maze Setup</title>
+<title>CAI Skills Study Setup</title>
 <style>
-:root{--red:#C41F3E;--ink:#383B3E;--ink2:#606366;--line:#D9D9D6;--bg:#F2F3F2}
+:root{--red:#C41F3E;--ink:#383B3E;--ink2:#606366;--line:#D9D9D6;--bg:#F2F3F2;--pink:#FAF1F3}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Helvetica Neue",Arial,sans-serif;padding:32px 16px}
-main{max-width:980px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
-h1{font-size:26px;margin:0}
-h2{font-size:17px;margin:0 0 4px}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 "Helvetica Neue",Arial,sans-serif;padding:32px 16px}
+main{max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+h1{font-size:28px;margin:0}
+h2{font-size:20px;margin:8px 0 0}
+h3{font-size:16px;margin:0}
 p{margin:0}
-.lead{color:var(--ink2)}
+ol,ul{margin:0;padding-left:20px}
+li{margin:3px 0}
+.lead{color:var(--ink2);max-width:80ch}
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:18px 20px;display:flex;flex-direction:column;gap:10px}
 .row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
 code,.url{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px}
@@ -23,76 +26,148 @@ button:hover{background:var(--bg)}
 a{color:var(--red)}
 .lbl{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
 .path{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-.path span{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:#FAF1F3;color:var(--red);border-radius:999px;padding:2px 9px}
+.path span{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:var(--pink);color:var(--red);border-radius:999px;padding:2px 9px}
 .path i{font-style:normal;color:var(--ink2)}
-.alt{font-size:13px;color:var(--ink2)}
-ol{margin:0;padding-left:20px}
+.muted{font-size:13.5px;color:var(--ink2)}
+.task-text{background:var(--bg);border-radius:8px;padding:10px 14px;font-size:15px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--bg);vertical-align:top}
+th{font-size:12px;color:var(--ink2);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.tbl{overflow-x:auto}
+.obj{display:inline-block;font-size:11.5px;font-weight:600;border-radius:999px;padding:1px 8px;background:var(--bg);color:var(--ink2);white-space:nowrap}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.tier{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.tier b{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;color:var(--red)}
 </style>
 </head>
 <body>
 <main>
-  <h1>CAI Skills: Maze test setup</h1>
-  <p class="lead">For the researcher only. Participants get the start URLs below, never this page. Each start URL opens a clean prototype with no flow bar or tips. Every screen change adds <code>&amp;screen=…</code> to the URL, which is what Maze records as a step.</p>
+  <h1>CAI Skills baseline study</h1>
+  <p class="lead">Researcher setup page. Participants only get the start URLs. Each start URL opens a clean copy of the shipped Skills experience. Every screen change adds <code>&amp;screen=…</code> to the URL, which Maze records as a step.</p>
 
   <section class="card">
-    <h2>Set up in Maze</h2>
+    <h3>Objectives</h3>
     <ol>
-      <li>Team settings → Connected websites: add <code>https://pizzolaj.github.io</code> and verify it by opening any start URL below.</li>
-      <li>Add a <b>Website test</b> block for each task. Paste the task's start URL as the starting page.</li>
-      <li>Record the expected path by clicking through it once. Add the alternates as extra success paths.</li>
-      <li>Tell participants to select <b>End task</b> when done. Maze doesn't end website tasks on its own.</li>
+      <li>Map how pilot users discover, install, and trigger skills.</li>
+      <li>Find where the mental model breaks: personal vs. Enterprise (locked), auto-trigger vs. <code>/command</code>.</li>
+      <li>Find the scenarios where people want a skill vs. a one-off prompt.</li>
+      <li>See what non-technical users do when a skill's output is weak and the fix is in Python, and what help would get them unstuck.</li>
+      <li>Produce a prioritized list of UX changes for creation, the Enterprise directory, and weak output, backed by task data.</li>
     </ol>
   </section>
 
+  <section class="card">
+    <h3>Maze setup</h3>
+    <ol>
+      <li>Make two studies from the same blocks: <b>Version A</b> and <b>Version B</b>. Send each to a random half of the 500 pilot users.</li>
+      <li>For each task, add a <b>Website test</b> block, paste the start URL, and paste the task text.</li>
+      <li>Record the expected path by clicking through it once. Add the alternates as extra success paths.</li>
+      <li>Add the follow-up questions straight after each task.</li>
+      <li>Use Maze conditions so people who answer "Never" to S2 skip A2–A3.</li>
+      <li>Preview end to end, then pilot with one colleague before sending.</li>
+    </ol>
+  </section>
+
+  <h2>Shared blocks (both versions)</h2>
+  <section class="card">
+    <div class="lbl">Screener: sorts people into groups, disqualifies no one</div>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Question</th><th>Type</th></tr></thead><tbody>
+      <tr><td>S1</td><td>How often do you use CAI 2.0? Daily · A few times a week · Weekly · Less often</td><td>Single</td></tr>
+      <tr><td>S2</td><td>Have you used a skill in CAI 2.0? Never · I've used one my organization provides · I've created my own · I'm not sure what a skill is</td><td>Single</td></tr>
+      <tr><td>S3</td><td>What's your role and line of business?</td><td>Open</td></tr>
+    </tbody></table></div>
+    <div class="lbl">Part A: current use and understanding</div>
+    <div class="tbl"><table><thead><tr><th>#</th><th>Question</th><th>Type</th><th>Obj.</th></tr></thead><tbody>
+      <tr><td>A1</td><td>In your own words, what is a skill in CAI?</td><td>Open</td><td><span class="obj">2</span></td></tr>
+      <tr><td>A2</td><td>How do you usually start a skill? Type / in chat · + menu in chat · CAI runs it for me · Create skill from a chat · I don't · Not sure</td><td>Multi</td><td><span class="obj">1</span></td></tr>
+      <tr><td>A3</td><td>Where do the skills you use come from? Enterprise directory · I created it · I uploaded it · A colleague shared it · Not sure</td><td>Multi</td><td><span class="obj">1</span></td></tr>
+      <tr><td>A4</td><td>An Enterprise skill is marked "Locked — managed by admin." Which of these can you do? Turn it off · Edit its instructions · Clone it and edit the copy · Delete it · Not sure</td><td>Multi</td><td><span class="obj">2</span></td></tr>
+      <tr><td>A5</td><td>A skill's trigger is "Slash command + auto." When does it run? Only when I type /skill-name · When I type / or when my request matches what the skill does · Only when I pick it from a menu · Not sure</td><td>Single</td><td><span class="obj">2</span></td></tr>
+      <tr><td>A6</td><td>Which of these would you set up as a skill rather than type as a prompt each time? A recurring report format · Editorial or style standards · A structured analysis · A one-off question · Meeting notes · None</td><td>Multi</td><td><span class="obj">3</span></td></tr>
+      <tr><td>A7</td><td>What's a request you've typed into CAI more than twice?</td><td>Open</td><td><span class="obj">3</span></td></tr>
+    </tbody></table></div>
+    <div class="lbl">Part C: wrap-up</div>
+    <ul><li>C1. What's one thing you'd change about skills? (Open)</li><li>C2. Can we contact you for a 30-minute follow-up session? Yes · No</li></ul>
+  </section>
+
+  <h2>Tasks</h2>
+  <div class="tabs" role="group" aria-label="Version"><button data-v="A" aria-pressed="true">Version A</button><button data-v="B" aria-pressed="false">Version B</button></div>
   <div id="tasks"></div>
 
+  <h2>Moderated sessions</h2>
   <section class="card">
-    <h2>Notes</h2>
-    <p class="alt">Open <a href="./">the prototype without a task</a> to get the demo version with the flow bar. Chat responses are scripted, so write task prompts that steer participants to the scenario (for example, name New Brunswick and a $100 oil price). Typing unrelated requests returns a neutral “try again” message.</p>
+    <p class="muted">6–8 sessions, 45 minutes, on live CAI 2.0. Recruit from C2 = Yes: 2–3 who created a skill, 2–3 who only used Enterprise skills, 2 who said they're not sure what a skill is.</p>
+    <div class="tbl"><table><thead><tr><th>Segment</th><th>Prompts</th><th>Obj.</th></tr></thead><tbody>
+      <tr><td>Tour</td><td>Show me a skill you used recently. Walk me through the last time: where you found it, how you started it, what you got back.</td><td><span class="obj">1, 3</span></td></tr>
+      <tr><td>Predictions</td><td>On their own Skills page: "If you typed ___, would this skill run?" "Could you change this Enterprise skill? How?" Ask for the prediction first, then check it together.</td><td><span class="obj">2</span></td></tr>
+      <tr><td>Sort</td><td>List the requests you repeat. Sort them into "would make a skill" and "wouldn't." Why?</td><td><span class="obj">3</span></td></tr>
+      <tr><td>Failure story</td><td>Tell me about the last time a skill's output was mediocre. What did you do? If they created a skill, open it in the editor together.</td><td><span class="obj">4</span></td></tr>
+      <tr><td>Concepts</td><td>Show 2–3 rough concepts: a plain-language diagnosis of what went wrong, CAI proposing a fix with a before/after to approve, routing the problem to the skill owner. React and rank.</td><td><span class="obj">4</span></td></tr>
+      <tr><td>At scale</td><td>"If there were 300 Enterprise skills, how would you find the right one?" "Who should be able to publish one?"</td><td><span class="obj">5</span></td></tr>
+    </tbody></table></div>
   </section>
+
+  <section class="card"><p class="muted">Open <a href="./">the prototype with no task</a> for the demo version with the task bar. Chat replies are scripted to these scenarios; anything else returns a neutral "try again" message.</p></section>
 </main>
 <script>
 const BASE = new URL("./", location.href).href;
+const SEQ = "Ease rating: How easy or difficult was this? (1–7)";
 const T = [
-  { id: "library", name: "Turn a skill off",
-    prompt: "CAI keeps using the draft-content skill in your chats. Stop CAI from using it.",
-    path: ["skill-cibc-strategy-report", "skill-draft-content", "skill-draft-content-off"] },
-  { id: "browse", name: "Find and install a skill",
-    prompt: "You need a skill that lists the key risks and mitigants for a borrower. Find one your organization provides and add it to your skills.",
-    path: ["skill-cibc-strategy-report", "add-menu", "directory", "directory-risks-mitigants", "directory-risks-mitigants-installed"],
-    alt: "Installing from the card grid ends at directory-risks-mitigants-installed without opening the detail." },
-  { id: "create", name: "Create a skill",
-    prompt: "Create a skill that writes your weekly status report in three sections: highs, lows, and next steps.",
-    path: ["skill-cibc-strategy-report", "add-menu", "create-menu", "write-instructions", "skill-weekly-status-report"],
-    alt: "Create with AI: add-menu → create-menu → create-ai → create-ai-chat → create-ai-q1 … q6 → create-ai-draft → skill-…. Upload: … → upload → upload-success. The final skill name depends on what participants type." },
-  { id: "invoke", name: "Run a skill in chat",
+  { v: "A", id: "install", name: "Find and install a skill", obj: "1, 5",
+    prompt: "Your team needs a skill that lists the key risks and mitigants for a borrower. Your organization may already provide one. Find it and add it to your skills.",
+    path: ["skill-deck-builder", "add-menu", "directory", "directory-risks-mitigants", "directory-risks-mitigants-installed"],
+    alt: "Installing from the card grid: … → directory → directory-risks-mitigants-installed. Searching the directory doesn't add a step.",
+    fu: [SEQ, "How would you describe the difference between Enterprise skills and your personal skills? (Open)"] },
+  { v: "A", id: "locked", name: "Change a locked skill", obj: "2",
+    prompt: "You use cibc-strategy-report often, but you want its scorecard to use different rating labels. Set things up so you can make that change.",
+    path: ["skill-deck-builder", "skill-cibc-strategy-report", "more-menu", "editor-clone-cibc-strategy-report-SKILL", "skill-cibc-strategy-report-copy"],
+    alt: "Watch for more-menu with no further step: they found Edit disabled and stopped. Opening a script adds editor-clone-…-build_report or -make_radar.",
+    fu: [SEQ, "What did you expect to happen when you tried to change it? (Open)", "Who do you think can change the original? Me · My admin · Anyone · Not sure"] },
+  { v: "A", id: "invoke", name: "Run a skill in chat", obj: "1, 2",
     prompt: "Use your compare-to-plan skill to compare June results with plan.",
     path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-running-compare-to-plan", "chat-done-compare-to-plan"],
-    alt: "Via the + menu: chat-new → chat-add-menu → chat-add-skills → chat-add-skills-personal → chat-skill-selected → …" },
-  { id: "chatcreate", name: "Create a skill in chat",
-    prompt: "In this chat, create a skill called Credit Risk Deep-Dive that analyzes a province's key sectors under an economic scenario and flags High risk items first. Attach reference files.",
-    path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-add-menu", "chat-skill-selected", "chat-sent", "chat-create-q1", "chat-create-q2", "chat-create-q3", "chat-create-q4", "chat-create-writing", "chat-skill-created"],
-    alt: "Sending /create-skill with no prompt adds chat-create-brief before the questions. Attaching files is optional." },
-  { id: "recommend", name: "Choose a suggested skill",
-    prompt: "Ask CAI for New Brunswick's credit exposure under a $100 oil price scenario, with a full written analysis. Run it.",
+    alt: "Via the + menu: chat-new → chat-add-menu → chat-add-skills → chat-add-skills-personal → chat-skill-selected → chat-running-compare-to-plan → chat-done-compare-to-plan.",
+    fu: [SEQ, "If you had typed \"compare June results to plan\" without the /, would the skill have run? Yes · No · Not sure", "How could you tell the skill ran? (Open)"] },
+  { v: "B", id: "create", name: "Create a skill", obj: "1, 5",
+    prompt: "Create a skill that writes your weekly status report.",
+    path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-sent", "chat-create-q1", "chat-create-q2", "chat-create-q3", "chat-create-q4", "chat-create-writing", "chat-skill-created"],
+    alt: "Write instructions: … → skill-deck-builder → add-menu → create-menu → write-instructions → skill-<name>. Create with AI: … → create-menu → create-ai → create-ai-chat → create-ai-q1 … q4 → create-ai-draft → skill-weekly-status-report. The name at the end depends on what they type, so record each path to the last shared step. Which path people choose is itself the objective 1 data.",
+    fu: [SEQ, "Why did you create it that way? (Open)", "How confident are you the skill will work the way you want? (1–7)"] },
+  { v: "B", id: "fix", name: "Fix a weak output", obj: "4",
+    prompt: "You ran your customer-intelligence-dashboard skill and it only shows 5 accounts, from last quarter, with no trend. Get it to show your full book of business.",
+    path: ["chat-done-customer-intelligence-dashboard", "skill-deck-builder", "skill-customer-intelligence-dashboard", "more-menu", "editor-customer-intelligence-dashboard-SKILL", "editor-customer-intelligence-dashboard-build_dashboard", "skill-customer-intelligence-dashboard", "chat-done-customer-intelligence-dashboard", "chat-slash-menu", "chat-done-customer-intelligence-dashboard", "chat-running-customer-intelligence-dashboard", "chat-done-customer-intelligence-dashboard-full"],
+    alt: "Score this task by the furthest step reached, not pass or fail. The cause is TOP_N = 5 in scripts/build_dashboard.py; SKILL.md is correct.",
+    tiers: [["chat-running-…", "Re-ran the skill (output stays the same)"], ["editor-…-SKILL", "Opened the skill in the editor"], ["editor-…-build_dashboard", "Opened the script"], ["chat-done-…-full", "Changed the script, saved, and re-ran"]],
+    fu: [SEQ, "What do you think was causing the problem? (Open)", "What would you normally do next? Re-run it · Rewrite my request · Edit the skill · Ask a colleague · Contact the skill owner · Give up and do it by hand", "Rank what would have helped most: A plain-language explanation of the cause · CAI offers to fix it for me · Contact the skill owner · An example to copy · Other"] },
+  { v: "B", id: "recommend", name: "Choose a suggested skill", obj: "2",
+    prompt: "Ask CAI to check New Brunswick's credit exposure under a $100 oil price scenario, with a full written analysis. Get the analysis running.",
     path: ["chat-new", "chat-sent", "chat-recommend", "chat-recommend-picked", "chat-plan-pending", "chat-running-credit-risk-deep-dive", "chat-done-credit-risk-deep-dive"],
-    alt: "Picking scenario-scorecard ends at chat-done-scenario-scorecard. Continue without skill ends at chat-done-none." }
+    alt: "Picking scenario-scorecard ends at chat-done-scenario-scorecard (didn't match the brief). Continue without skill ends at chat-done-none.",
+    fu: [SEQ, "Before you picked an option, had anything run yet? Yes · No · Not sure", "Why did you pick that option? (Open)"] }
 ];
-document.getElementById("tasks").innerHTML = T.map((t, i) => {
-  const url = BASE + "?task=" + t.id;
-  return `<section class="card">
-    <div class="lbl">Task ${i + 1}</div><h2>${t.name}</h2>
-    <p><b>Suggested prompt:</b> ${t.prompt}</p>
-    <div class="row"><div class="url" id="u${i}">${url}</div><button data-u="${url}">Copy</button><a href="${url}" target="_blank" rel="noopener">Open</a></div>
-    <div class="lbl">Expected path (screen=)</div>
-    <div class="path">${t.path.map(p => `<span>${p}</span>`).join("<i>→</i>")}</div>
-    ${t.alt ? `<p class="alt">${t.alt}</p>` : ""}
-  </section>`;
-}).join("");
+function show(v) {
+  document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === v));
+  document.getElementById("tasks").innerHTML = T.filter(t => t.v === v).map((t, i) => {
+    const url = BASE + "?task=" + t.id;
+    return `<section class="card">
+      <div class="lbl">Version ${t.v} · Task ${i + 1} · Objective ${t.obj}</div><h3>${t.name}</h3>
+      <div class="task-text">${t.prompt}</div>
+      <div class="row"><div class="url">${url}</div><button data-u="${url}">Copy</button><a href="${url}" target="_blank" rel="noopener">Open</a></div>
+      <div class="lbl">Expected path (screen=)</div>
+      <div class="path">${t.path.map(p => `<span>${p}</span>`).join("<i>→</i>")}</div>
+      <p class="muted">${t.alt}</p>
+      ${t.tiers ? `<div class="lbl">Tiers</div><div class="tier">${t.tiers.map(([k, d], n) => `<b>${n + 1}. ${k}</b><span>${d}</span>`).join("")}</div>` : ""}
+      <div class="lbl">Follow-up questions</div><ul>${t.fu.map(q => `<li>${q}</li>`).join("")}</ul>
+    </section>`;
+  }).join("");
+}
 document.addEventListener("click", e => {
+  const tb = e.target.closest(".tabs button"); if (tb) return show(tb.dataset.v);
   const b = e.target.closest("button[data-u]"); if (!b) return;
   navigator.clipboard.writeText(b.dataset.u).then(() => { b.textContent = "Copied"; setTimeout(() => b.textContent = "Copy", 1500); }).catch(() => {});
 });
+show("A");
 </script>
 </body>
 </html>
