@@ -64,17 +64,21 @@ th{font-size:12px;color:var(--ink2);font-weight:600;text-transform:uppercase;let
       <li>For each task, add a <b>Website test</b> block, paste the start URL, and paste the task text.</li>
       <li>Record the expected path by clicking through it once. Add the alternates as extra success paths.</li>
       <li>Add the follow-up questions straight after each task.</li>
-      <li>Use Maze conditions so people who answer "Never" to S2 skip A2–A3.</li>
+      <li>S2 sits after A1, so A1 is answered before the word "skill" is defined by any options. People who answer "Never" or "I'm not sure what a skill is" skip A2–A3 (Maze condition on S2).</li>
+      <li>A4 and A5 are in Version B only. In Version A they would prime the locked and invoke tasks.</li>
+      <li>Screen recording is on and responses are desktop only in both studies.</li>
+      <li>Maze has no task-order randomization, so task order is fixed. Report it as a limitation.</li>
       <li>Preview end to end, then pilot with one colleague before sending.</li>
     </ol>
   </section>
 
   <h2>Shared blocks (both versions)</h2>
   <section class="card">
+    <div class="lbl">Order: S1 · S3 · A1 · S2 · A2 · A3 · (A4 · A5, Version B only) · A6 · A7</div>
     <div class="lbl">Screener: sorts people into groups, disqualifies no one</div>
     <div class="tbl"><table><thead><tr><th>#</th><th>Question</th><th>Type</th></tr></thead><tbody>
       <tr><td>S1</td><td>How often do you use CAI 2.0? Daily · A few times a week · Weekly · Less often</td><td>Single</td></tr>
-      <tr><td>S2</td><td>Have you used a skill in CAI 2.0? Never · I've used one my organization provides · I've created my own · I'm not sure what a skill is</td><td>Single</td></tr>
+      <tr><td>S2</td><td>Have you used a skill in CAI 2.0? Never · I've used one my organization provides · I've created my own · I'm not sure what a skill is. Never or Not sure → skip to A4 (B) or A6 (A)</td><td>Single</td></tr>
       <tr><td>S3</td><td>What's your role and line of business?</td><td>Open</td></tr>
     </tbody></table></div>
     <div class="lbl">Part A: current use and understanding</div>
@@ -82,13 +86,13 @@ th{font-size:12px;color:var(--ink2);font-weight:600;text-transform:uppercase;let
       <tr><td>A1</td><td>In your own words, what is a skill in CAI?</td><td>Open</td><td><span class="obj">2</span></td></tr>
       <tr><td>A2</td><td>How do you usually start a skill? Type / in chat · + menu in chat · CAI runs it for me · Create skill from a chat · I don't · Not sure</td><td>Multi</td><td><span class="obj">1</span></td></tr>
       <tr><td>A3</td><td>Where do the skills you use come from? Enterprise directory · I created it · I uploaded it · A colleague shared it · Not sure</td><td>Multi</td><td><span class="obj">1</span></td></tr>
-      <tr><td>A4</td><td>An Enterprise skill is marked "Locked — managed by admin." Which of these can you do? Turn it off · Edit its instructions · Clone it and edit the copy · Delete it · Not sure</td><td>Multi</td><td><span class="obj">2</span></td></tr>
-      <tr><td>A5</td><td>A skill's trigger is "Slash command + auto." When does it run? Only when I type /skill-name · When I type / or when my request matches what the skill does · Only when I pick it from a menu · Not sure</td><td>Single</td><td><span class="obj">2</span></td></tr>
+      <tr><td>A4 (B)</td><td>An Enterprise skill is marked "Locked — managed by admin." Which of these can you do? Turn it off · Edit its instructions · Clone it and edit the copy · Delete it · Not sure</td><td>Multi</td><td><span class="obj">2</span></td></tr>
+      <tr><td>A5 (B)</td><td>A skill's trigger is "Slash command + auto." When does it run? Only when I type /skill-name · When I type / or when my request matches what the skill does · Only when I pick it from a menu · Not sure</td><td>Single</td><td><span class="obj">2</span></td></tr>
       <tr><td>A6</td><td>Which of these would you set up as a skill rather than type as a prompt each time? A recurring report format · Editorial or style standards · A structured analysis · A one-off question · Meeting notes · None</td><td>Multi</td><td><span class="obj">3</span></td></tr>
       <tr><td>A7</td><td>What's a request you've typed into CAI more than twice?</td><td>Open</td><td><span class="obj">3</span></td></tr>
     </tbody></table></div>
     <div class="lbl">Part C: wrap-up</div>
-    <ul><li>C1. What's one thing you'd change about skills? (Open)</li><li>C2. Can we contact you for a 30-minute follow-up session? Yes · No</li></ul>
+    <ul><li>C1. What's one thing you'd change about skills in CAI? (Open)</li><li>C2. Can we contact you for a 30-minute follow-up session? Yes · No</li><li>C3. If you answered Yes, what is your work email? (Optional)</li></ul>
   </section>
 
   <h2>Tasks</h2>
@@ -130,18 +134,18 @@ const T = [
     alt: "Via the + menu: chat-new → chat-add-menu → chat-add-skills → chat-add-skills-personal → chat-skill-selected → chat-running-compare-to-plan → chat-done-compare-to-plan.",
     fu: [SEQ, "If you had typed \"compare June results to plan\" without the /, would the skill have run? Yes · No · Not sure", "How could you tell the skill ran? (Open)"] },
   { v: "B", id: "create", name: "Create a skill", obj: "1, 5",
-    prompt: "Create a skill that writes your weekly status report.",
+    prompt: "Create a skill that writes your weekly status report. You write a status report for your team every week, and you want CAI to write it the same way each time. Create a skill for it.",
     path: ["chat-new", "chat-slash-menu", "chat-skill-selected", "chat-sent", "chat-create-q1", "chat-create-q2", "chat-create-q3", "chat-create-q4", "chat-create-writing", "chat-skill-created"],
     alt: "Write instructions: … → skill-deck-builder → add-menu → create-menu → write-instructions → skill-<name>. Create with AI: … → create-menu → create-ai → create-ai-chat → create-ai-q1 … q4 → create-ai-draft → skill-weekly-status-report. The name at the end depends on what they type, so record each path to the last shared step. Which path people choose is itself the objective 1 data.",
-    fu: [SEQ, "Why did you create it that way? (Open)", "How confident are you the skill will work the way you want? (1–7)"] },
+    fu: [SEQ, "How confident are you that the skill you created will work the way you want? (1–7)", "Why did you create the skill the way you did? (Open)"] },
   { v: "B", id: "fix", name: "Fix a weak output", obj: "4",
-    prompt: "You ran your customer-intelligence-dashboard skill and it only shows 5 accounts, from last quarter, with no trend. Get it to show your full book of business.",
+    prompt: "Get your customer-intelligence-dashboard skill to show your full book of business. You ran your customer-intelligence-dashboard skill. It only shows 5 accounts, from last quarter, with no trend. You need it to show all your accounts. Get the skill to produce the output you need.",
     path: ["chat-done-customer-intelligence-dashboard", "skill-deck-builder", "skill-customer-intelligence-dashboard", "more-menu", "editor-customer-intelligence-dashboard-SKILL", "editor-customer-intelligence-dashboard-build_dashboard", "skill-customer-intelligence-dashboard", "chat-done-customer-intelligence-dashboard", "chat-slash-menu", "chat-done-customer-intelligence-dashboard", "chat-running-customer-intelligence-dashboard", "chat-done-customer-intelligence-dashboard-full"],
     alt: "Score this task by the furthest step reached, not pass or fail. The cause is TOP_N = 5 in scripts/build_dashboard.py; SKILL.md is correct.",
     tiers: [["chat-running-…", "Re-ran the skill (output stays the same)"], ["editor-…-SKILL", "Opened the skill in the editor"], ["editor-…-build_dashboard", "Opened the script"], ["chat-done-…-full", "Changed the script, saved, and re-ran"]],
-    fu: [SEQ, "What do you think was causing the problem? (Open)", "What would you normally do next? Re-run it · Rewrite my request · Edit the skill · Ask a colleague · Contact the skill owner · Give up and do it by hand", "Rank what would have helped most: A plain-language explanation of the cause · CAI offers to fix it for me · Contact the skill owner · An example to copy · Other"] },
+    fu: [SEQ, "What do you think was causing the problem? (Open)", "What would you normally do next if a skill gave you output like this? Re-run it · Rewrite my request · Edit the skill · Ask a colleague · Contact the skill owner · Do it by hand instead · Other", "Which of these would have helped you most? A plain-language explanation of what went wrong · CAI offering to fix the skill for me · A way to contact the skill owner · An example skill to copy from · Other"] },
   { v: "B", id: "recommend", name: "Choose a suggested skill", obj: "2",
-    prompt: "Ask CAI to check New Brunswick's credit exposure under a $100 oil price scenario, with a full written analysis. Get the analysis running.",
+    prompt: "Get a credit exposure analysis running for New Brunswick. Ask CAI to check New Brunswick's credit exposure under a $100 oil price scenario, with a full written analysis. Get the analysis running.",
     path: ["chat-new", "chat-sent", "chat-recommend", "chat-recommend-picked", "chat-plan-pending", "chat-running-credit-risk-deep-dive", "chat-done-credit-risk-deep-dive"],
     alt: "Picking scenario-scorecard ends at chat-done-scenario-scorecard (didn't match the brief). Continue without skill ends at chat-done-none.",
     fu: [SEQ, "Before you picked an option, had anything run yet? Yes · No · Not sure", "Why did you pick that option? (Open)"] }
